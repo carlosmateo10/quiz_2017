@@ -190,7 +190,7 @@ exports.check = function (req, res, next) {
 
 // GET randomplay
 exports.randomplay = function (req, res, next) {
-    req.session.p52=preguntasHechas;
+    if(!(req.session.p52={preguntasHechas:[-1]}){}
     models.Quiz.count({where:{id:{notIn:preguntasHechas}}})
         .then(function (c) {
             var random = Math.floor(Math.random()*c);
