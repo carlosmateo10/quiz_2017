@@ -190,13 +190,24 @@ exports.check = function (req, res, next) {
 
 // GET randomplay
 exports.randomplay = function (req, res, next) {
+    req.session.p52=
+    models.Quiz.count({where:{id:{notIn:preguntasHechas}}})
+        .then(function (c) {
+            var random = Math.floor(Math.random()*c);
+            return models.Quiz.findAll({limit:1, offset})
+        })
+        .then(function (quizzes) {
+            if(quizzes.length==0){
+                res.render('quizzes/random_nomore')
+            }else{
+                var q=quizzes[0];
+                res.render('quizzes/random_play', {
+                    quiz:q,
+                    score: req.session.p52.preguntasHechas.length-1}
+                )
+            }
+        })
 
-    var answer = req.query.answer || '';
-
-    res.render('quizzes/random_play', {
-        quiz: req.quiz,
-        answer: answer
-    });
 };
 
 // GET randomcheck
