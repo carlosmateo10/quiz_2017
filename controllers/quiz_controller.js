@@ -187,3 +187,25 @@ exports.check = function (req, res, next) {
         answer: answer
     });
 };
+
+// GET randomplay
+exports.randomplay = function (req, res, next) {
+
+    var answer = req.query.answer || '';
+
+    res.render('quizzes/random_play', {
+        quiz: req.quiz,
+        answer: answer
+    });
+};
+
+// GET randomcheck
+exports.randomcheck = function (req, res, next) {
+
+    var answer = req.query.answer || '';
+
+    res.render('quizzes/random_check', {
+        quiz: req.quiz,
+        answer: answer
+    });
+};
